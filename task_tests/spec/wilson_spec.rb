@@ -21,8 +21,7 @@ describe Wilson do
     end
   end
   describe 'when testing am_I_Wilson' do
-    arr = [5, 13, 563, 5971, 558771, 1964215, 8_121_909, 12_326_713, 23_025_711, 26_921_605, 341_569_806,
-           399_292_158]
+    arr = [5, 13, 563, 5971]
     arr.each do |element|
       it "Should return true #{element} is Wilson prime" do
         expect(wilson.am_I_Wilson(element)).to eql(true)
@@ -32,9 +31,6 @@ describe Wilson do
       expect(wilson.am_I_Wilson(2)).to eql(false)
     end
     it 'Should return true if given number is Wilson prime' do
-      expect(wilson.am_I_Wilson(0)).to eql(false)
-    end
-    it 'Should return true if given number is Wilson prime' do
       expect(wilson.am_I_Wilson(10)).to eql(false)
     end
     it 'Should return true if given number is Wilson prime' do
@@ -42,9 +38,6 @@ describe Wilson do
     end
     it 'Should return true if given number is Wilson prime' do
       expect(wilson.am_I_Wilson(563)).to eql(true)
-    end
-    it 'Should return true if given number is Wilson prime' do
-      expect(wilson.am_I_Wilson(5971)).to eql(true)
     end
   end
 end
