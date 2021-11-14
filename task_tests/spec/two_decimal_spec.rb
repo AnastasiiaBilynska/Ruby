@@ -2,37 +2,57 @@ require 'rspec'
 require './two_decimal'
 
 describe Num do
-  number = Num.new
-  describe 'when testing two_decimal_places' do
-    it 'Should return given number rounded to two decimal places' do
-      expect(number.two_decimal_places(0.5697445587458)).to eql(0.57)
+  subject { Num.new }
+  context 'testing two_decimal_places' do
+    context 'return given number rounded to two decimal places' do
+      let(:num) { 0.5697445587458 }
+      let(:expectation) { 0.57 }
+      it { expect(subject.two_decimal_places(num)).to eql(expectation) }
     end
-    it 'Should return given number rounded to two decimal places' do
-      expect(number.two_decimal_places(1_222_222_222.77711111112)).to eql(1_222_222_222.78)
+    context 'return given number rounded to two decimal places' do
+      let(:num) { 1_222_222_222.77711111112 }
+      let(:expectation) { 1_222_222_222.78 }
+      it { expect(subject.two_decimal_places(num)).to eql(expectation) }
     end
-    it 'Should return given number rounded to two decimal places' do
-      expect(number.two_decimal_places(-20.4327598745)).to eql(-20.43)
+    context 'return given number rounded to two decimal places' do
+      let(:num) { -20.4327598745 }
+      let(:expectation) { -20.43 }
+      it { expect(subject.two_decimal_places(num)).to eql(expectation) }
     end
-    it 'Should return given number rounded to two decimal places' do
-      expect(number.two_decimal_places(122.5555555555555)).to eql(122.56)
+    context 'return given number rounded to two decimal places' do
+      let(:num) { 122.5555555555555 }
+      let(:expectation) { 122.56 }
+      it { expect(subject.two_decimal_places(num)).to eql(expectation) }
     end
-    it 'Should return given number rounded to two decimal places' do
-      expect(number.two_decimal_places(7.34755888445)).to eql(7.35)
+    context 'return given number rounded to two decimal places' do
+      let(:num) { 7.34755888445 }
+      let(:expectation) { 7.35 }
+      it { expect(subject.two_decimal_places(num)).to eql(expectation) }
     end
-    it 'Should return given number rounded to two decimal places' do
-      expect(number.two_decimal_places(-355_555_555.12711111112)).to eql(-355_555_555.13)
+    context 'return given number rounded to two decimal places' do
+      let(:num) { -355_555_555.12711111112 }
+      let(:expectation) { -355_555_555.13 }
+      it { expect(subject.two_decimal_places(num)).to eql(expectation) }
     end
-    it 'Should return given number rounded to two decimal places' do
-      expect(number.two_decimal_places(-1.11111111111119)).to eql(-1.11)
+    context 'return given number rounded to two decimal places' do
+      let(:num) { -1.11111111111119 }
+      let(:expectation) { -1.11 }
+      it { expect(subject.two_decimal_places(num)).to eql(expectation) }
     end
-    it 'Should return given number rounded to two decimal places' do
-      expect(number.two_decimal_places(5.9244444444445)).to eql(5.92)
+    context 'return given number rounded to two decimal places' do
+      let(:num) { 5.9244444444445 }
+      let(:expectation) { 5.92 }
+      it { expect(subject.two_decimal_places(num)).to eql(expectation) }
     end
-    it 'Should return given number rounded to two decimal places' do
-      expect(number.two_decimal_places(5.00000001)).to eql(5.00)
+    context 'return given number rounded to two decimal places' do
+      let(:num) { 5.00000001 }
+      let(:expectation) { 5.00 }
+      it { expect(subject.two_decimal_places(num)).to eql(expectation) }
     end
-    it 'Should return given number rounded to two decimal places' do
-      expect(number.two_decimal_places(5.9999999)).to eql(6.00)
+    context 'return given number rounded to two decimal places' do
+      let(:num) { 5.9999999 }
+      let(:expectation) { 6.00 }
+      it { expect(subject.two_decimal_places(num)).to eql(expectation) }
     end
   end
 end
