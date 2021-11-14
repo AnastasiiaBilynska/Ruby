@@ -2,67 +2,42 @@ require 'rspec'
 require './wilson'
 
 describe Wilson do
-  subject { Wilson.new }
-  context 'testing factorial' do
-    context 'return factorial' do
-      let(:num) { 0 }
-      let(:expectation) { 1 }
-      it { expect(subject.facto(num)).to eql(expectation) }
+  wilson = Wilson.new
+  describe 'when testing fuctorial' do
+    it 'Should return a factorial of given number' do
+      expect(wilson.fact(0)).to eql(1)
     end
-    context 'return fact' do
-      let(:num) { 1 }
-      let(:expectation) { 1 }
-      it { expect(subject.facto(num)).to eql(expectation) }
+    it 'Should return a factorial of given number' do
+      expect(wilson.fact(1)).to eql(1)
     end
-    context 'return fact' do
-      let(:num) { 5 }
-      let(:expectation) { 120 }
-      it { expect(subject.facto(num)).to eql(expectation) }
+    it 'Should return a factorial of given number' do
+      expect(wilson.fact(5)).to eql(120)
     end
-    context 'return fact' do
-      let(:num) { 10 }
-      let(:expectation) { 3_628_800 }
-      it { expect(subject.facto(num)).to eql(expectation) }
+    it 'Should return a factorial of given number' do
+      expect(wilson.fact(10)).to eql(3_628_800)
     end
-    context 'return fact' do
-      let(:num) { 20 }
-      let(:expectation) { 2_432_902_008_176_640_000 }
-      it { expect(subject.facto(num)).to eql(expectation) }
+    it 'Should return a factorial of given number' do
+      expect(wilson.fact(20)).to eql(2_432_902_008_176_640_000)
     end
   end
-  context 'testing am_I_Wilson' do
-    context 'return true' do
-      arr = [5, 13, 563]
-      let(:expectation) { true }
-      arr.each do |element|
-        let(:element) { element }
-        it { expect(subject.am_I_Wilson(element)).to eql(expectation) }
+  describe 'when testing am_I_Wilson' do
+    arr = [5, 13, 563, 5971]
+    arr.each do |element|
+      it "Should return true #{element} is Wilson prime" do
+        expect(wilson.am_I_Wilson(element)).to eql(true)
       end
     end
-    context 'return false' do
-      let(:num) { 2 }
-      let(:expectation) { false }
-      it { expect(subject.am_I_Wilson(num)).to eql(expectation) }
+    it 'Should return true if given number is Wilson prime' do
+      expect(wilson.am_I_Wilson(2)).to eql(false)
     end
-    context 'return false' do
-      let(:num) { 10 }
-      let(:expectation) { false }
-      it { expect(subject.am_I_Wilson(num)).to eql(expectation) }
+    it 'Should return true if given number is Wilson prime' do
+      expect(wilson.am_I_Wilson(10)).to eql(false)
     end
-    context 'return false' do
-      let(:num) { 11_111_111 }
-      let(:expectation) { false }
-      it { expect(subject.am_I_Wilson(num)).to eql(expectation) }
+    it 'Should return true if given number is Wilson prime' do
+      expect(wilson.am_I_Wilson(13)).to eql(true)
     end
-    context 'return false' do
-      let(:num) { 0 }
-      let(:expectation) { false }
-      it { expect(subject.am_I_Wilson(num)).to eql(expectation) }
-    end
-    context 'return false' do
-      let(:num) { 1 }
-      let(:expectation) { false }
-      it { expect(subject.am_I_Wilson(num)).to eql(expectation) }
+    it 'Should return true if given number is Wilson prime' do
+      expect(wilson.am_I_Wilson(563)).to eql(true)
     end
   end
 end

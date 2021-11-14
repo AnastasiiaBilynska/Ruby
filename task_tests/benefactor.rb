@@ -1,10 +1,6 @@
 class Benefactor
   def new_avg(arr, newavg)
-    a = newavg * (arr.count + 1) - arr.sum
-    if a.negative?
-      raise 'ERROR'
-    else
-      a.ceil
-    end
+    a = newavg * (arr.size + 1) - arr.sum
+    a > 0 ? a.ceil : raise
   end
 end
