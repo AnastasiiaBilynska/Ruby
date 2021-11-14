@@ -1,42 +1,119 @@
-=begin 
-A floating-point system
+# https://www.codewars.com/kata/5868b2de442e3fb2bb000119
+#
+# Closest and Smallest
+#
+# Input
+# a string strng of n positive numbers (n = 0 or n >= 2)
+# Let us call weight of a number the sum of its digits. For example 99 will have "weight" 18, 100 will have "weight" 1.
+#
+# Two numbers are "close" if the difference of their weights is small.
+#
+# Task:
+# For each number in strng calculate its "weight" and then find two numbers of strng that have:
+#
+# the smallest difference of weights ie that are the closest
+# with the smallest weights
+# and with the smallest indices (or ranks, numbered from 0) in strng
+# Output:
+# an array of two arrays, each subarray in the following format:
+# [number-weight, index in strng of the corresponding number, original corresponding number in strng]
+#
+# or a pair of two subarrays (Haskell, Clojure, FSharp) or an array of tuples (Elixir, C++)
+#
+# or a (char*) in C or a string in some other languages mimicking an array of two subarrays or a string
+#
+# or a matrix in R (2 rows, 3 columns, no columns names)
+#
+# The two subarrays are sorted in ascending order by their number weights if these weights are different, by their indexes in the string if they have the same weights.
+#
+# Examples:
+# Let us call that function closest
+#
+# strng = "103 123 4444 99 2000"
+# the weights are 4, 6, 16, 18, 2 (ie 2, 4, 6, 16, 18)
+#
+# closest should return [[2, 4, 2000], [4, 0, 103]] (or ([2, 4, 2000], [4, 0, 103])
+# or [{2, 4, 2000}, {4, 0, 103}] or ... depending on the language)
+# because 2000 and 103 have for weight 2 and 4, their indexes in strng are 4 and 0.
+# The smallest difference is 2.
+# 4 (for 103) and 6 (for 123) have a difference of 2 too but they are not
+# the smallest ones with a difference of 2 between their weights.
+# ....................
+#
+# strng = "80 71 62 53"
+# All the weights are 8.
+# closest should return [[8, 0, 80], [8, 1, 71]]
+# 71 and 62 have also:
+# - the smallest weights (which is 8 for all)
+# - the smallest difference of weights (which is 0 for all pairs)
+# - but not the smallest indices in strng.
+# ....................
+#
+# strng = "444 2000 445 544"
+# the weights are 12, 2, 13, 13 (ie 2, 12, 13, 13)
+#
+# closest should return [[13, 2, 445], [13, 3, 544]] or ([13, 2, 445], [13, 3, 544])
+# or [{13, 2, 445}, {13, 3, 544}] or ...
+# 444 and 2000 have the smallest weights (12 and 2) but not the smallest difference of weights;
+# they are not the closest.
+# Here the smallest difference is 0 and in the result the indexes are in ascending order.
+# ...................
+#
+# closest("444 2000 445 644 2001 1002") --> [[3, 4, 2001], [3, 5, 1002]] or ([3, 4, 2001],
+# [3, 5, 1002]]) or [{3, 4, 2001}, {3, 5, 1002}] or ...
+# Here the smallest difference is 0 and in the result the indexes are in ascending order.
+# ...................
+#
+# closest("239382 162 254765 182 485944 468751 49780 108 54")
+# The weights are: 27, 9, 29, 11, 34, 31, 28, 9, 9.
+# closest should return  [[9, 1, 162], [9, 7, 108]] or ([9, 1, 162], [9, 7, 108])
+# or [{9, 1, 162}, {9, 7, 108}] or ...
+# 108 and 54 have the smallest difference of weights too, they also have
+# the smallest weights but they don't have the smallest ranks in the original string.
+# ..................
+#
+# closest("54 239382 162 254765 182 485944 468751 49780 108")
+# closest should return  [[9, 0, 54], [9, 2, 162]] or ([9, 0, 54], [9, 2, 162])
+# or [{9, 0, 54}, {9, 2, 162}] or ...
+# Notes :
+# If n == 0 closest("") should return []
+#
+# or ([], []) in Haskell, Clojure, FSharp
+#
+# or [{}, {}] in Elixir or '(() ()) in Racket
+#
+# or {{0,0,0}, {0,0,0}} in C++
+#
+# or "[(), ()]" in Go, Nim,
+#
+# or "{{0,0,0}, {0,0,0}}" in C, NULL in R
+#
+# or "" in Perl.
+#
+# See Example tests for the format of the results in your language.
 
-A ﬂoating-point number can be represented as mantissa * radix ^ exponent (^ is raising radix to power exponent). In this kata we will be given a positive float aNumber and we want to decompose it into a positive integer mantissa composed of a given number of digits (called digitsNumber) and of an exponent.
+def closest(str)
+  arr = str.split
+  return arr if arr.length.zero?
 
-Example:
-aNumber = 0.06
-
-If the number of digits asked for the mantissa is digitsNumber = 10 one can write
-
-aNumber : 6000000000 * 10 ^ -11
-the exponent in this example est -11.
-
-Task
-The function mantExp(aNumber, digitsNumber) will return aNumber in the form of a string: "mantissaPexponent" (concatenation of "mantissa", "P", "exponent"). So:
-
-Examples:
-mantExp(0.06, 10) returns "6000000000P-11".
-mantExp(72.0, 12)   returns "720000000000P-10"
-mantExp(1.0, 5) returns "10000P-4"
-mantExp(123456.0, 4) returns "1234P2"
-Notes:
-In some languages aNumber could be given in the form of a string:
-mantExp("0.06", 10) returns "6000000000P-11".
-1 <= digitsNumber <= 15
-0 < aNumber < 5.0 ^ 128
-Please ask before translating
-
-
-=end
-
-def mant_exp(a_number, digits_number)
-  arr = (a_number + ".0").split(".")
-  mantissa = (arr[0] + arr[1]).gsub(/^0+/, "")
-  exponent = -arr[1].length
-  while (mantissa.length() < digits_number)
-    mantissa += "0"
-    exponent -= 1
+  weight_arr = arr.map { |element| element.to_i.digits.sum }
+  sorted_arr = weight_arr.sort
+  diff = 1_000_000
+  first_weight = 0
+  second_weight = 0
+  i = 0
+  while i < sorted_arr.length - 1
+    if (sorted_arr[i + 1] - sorted_arr[i]) < diff
+      diff = sorted_arr[i + 1] - sorted_arr[i]
+      first_weight = sorted_arr[i]
+      second_weight = sorted_arr[i + 1]
+    end
+    i += 1
   end
-  exponent += mantissa.length - digits_number
-  mantissa[0...digits_number] + "P" + exponent.to_s
+  first_index = weight_arr.find_index(first_weight)
+  weight_arr[first_index] = 'x'
+  second_index = weight_arr.find_index(second_weight)
+  first_element = arr[first_index].to_i
+  second_element = arr[second_index].to_i
+  [[first_weight, first_index, first_element], [second_weight, second_index, second_element]]
 end
